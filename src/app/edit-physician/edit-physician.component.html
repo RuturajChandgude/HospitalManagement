@@ -1,0 +1,20 @@
+<div>
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Position</mat-label>
+        <input matInput [(ngModel)]="position">
+    </mat-form-field>
+
+    
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="start">
+  <button  mat-flat-button color="primary" (click)="edit()">Edit</button>
+</mat-dialog-actions>
+</div>

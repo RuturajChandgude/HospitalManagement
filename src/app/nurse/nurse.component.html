@@ -1,0 +1,48 @@
+<div class="form">
+<div class="container">
+<h2>Nurse details</h2>
+<form [formGroup]="myform" (ngSubmit)="onSubmit()">
+<mat-form-field >
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+</mat-form-field>
+<br>
+<mat-form-field >
+    <mat-label>Position</mat-label>
+    <input matInput formControlName="position">
+</mat-form-field>
+
+<br>
+
+<mat-radio-group formControlName="registered">
+     <mat-label>Registered</mat-label>
+     <br>
+  <mat-radio-button value="true">true</mat-radio-button>
+  <mat-radio-button value="false">false</mat-radio-button>
+</mat-radio-group>
+
+<!-- <mat-form-field >
+    <mat-label>Registred</mat-label>
+    <mat-radio-group formControlName="myBooleanControl">
+  <mat-radio-button value="true">True</mat-radio-button>
+  <mat-radio-button value="false">False</mat-radio-button>
+</mat-radio-group>
+</mat-form-field> -->
+ <!-- <mat-form-field >
+    <mat-label>Registred</mat-label>
+   <input type="radio" formControlName="myBooleanControl" [value]="true">true
+</mat-form-field> -->
+  <!-- <label>Registred:</label>
+  <label>
+<input type="radio" formControlName="myBooleanControl" [value]="true">true
+ <input type="radio" formControlName="myBooleanControl" [value]="false">false
+</label>
+  <label>
+     <input type="radio" formControlName="myBooleanControl" [value]="false">false
+   </label> -->
+
+<br>
+<button mat-raised-button color="primary" type="submit">Submit</button>
+</form>
+</div>
+</div>
