@@ -1,5 +1,5 @@
 <div>
-<mat-dialog-content>
+    <mat-dialog-content>
     <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="name">
@@ -10,13 +10,18 @@
         <input matInput [(ngModel)]="position">
     </mat-form-field>
 
+    <mat-radio-group [(ngModel)]="registered">
+     <mat-label>Registered</mat-label>
+     <br>
+  <mat-radio-button  [value]="true">true</mat-radio-button>
+  <mat-radio-button  [value]="false">false</mat-radio-button>
+</mat-radio-group>
     
 </mat-dialog-content>
 
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="start">
   <button  mat-flat-button color="primary" (click)="cancel()">Cancel</button>
   <button  mat-flat-button color="primary" (click)="edit()">Edit</button>
-
 </mat-dialog-actions>
 </div>

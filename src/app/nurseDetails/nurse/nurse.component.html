@@ -1,6 +1,6 @@
 <div class="form">
 <div class="container">
-<h2>Physician details</h2>
+<h2>Nurse details</h2>
 <form [formGroup]="myform" (ngSubmit)="onSubmit()">
 <mat-form-field >
     <mat-label>Name</mat-label>
@@ -13,7 +13,17 @@
 </mat-form-field>
 
 <br>
-<button mat-raised-button color="primary" type="submit">Submit</button>
+
+<mat-radio-group formControlName="registered">
+     <mat-label>Registered</mat-label>
+     <br>
+  <mat-radio-button [value]="true">true</mat-radio-button>
+  <mat-radio-button [value]="false">false</mat-radio-button>
+</mat-radio-group>
+<br>
+
+<button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">Add</button>
+
 </form>
 </div>
 </div>
@@ -21,11 +31,9 @@
 <br><br><br>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  
-
-  <ng-container matColumnDef="physicianId">
+  <ng-container matColumnDef="nurseId">
     <th mat-header-cell *matHeaderCellDef>ID </th>
-    <td mat-cell *matCellDef="let element"> {{element.physicianId}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.nurseId}} </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
@@ -38,18 +46,28 @@
     <td mat-cell *matCellDef="let element"> {{element.position}} </td>
   </ng-container>
 
-   <ng-container matColumnDef="edit">
+   <ng-container matColumnDef="registered">
+    <th mat-header-cell *matHeaderCellDef> Registred </th>
+    <td mat-cell *matCellDef="let element"> {{element.registered}} </td>
+  </ng-container> 
+
+   <ng-container matColumnDef="createdOn">
+    <th mat-header-cell *matHeaderCellDef> Created On </th>
+    <td mat-cell *matCellDef="let element"> {{element.createdOn}} </td>
+  </ng-container> 
+  
+    <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef> Edit </th>
     <td mat-cell *matCellDef="let element" >
       <button mat-raised-button color="primary" (click)="openEditDialog(element)">Edit</button>
     </td>
-  </ng-container>
+   </ng-container>
 
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Delete </th>
     <td mat-cell *matCellDef="let element" >
-      <button mat-raised-button color="warn" (click)="deletePhysician(element)">Delete</button>
+      <button mat-raised-button color="primary" (click)="deleteNurse(element)">Delete</button>
     </td>
     
 
@@ -60,4 +78,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-

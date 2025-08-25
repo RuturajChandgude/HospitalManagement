@@ -26,7 +26,7 @@ data_update:updatePhysician[]=[]
 data:getPhysician[]=[]
 
 table_Data:getPhysician[]=[]
-displayedColumns: string[] = ['physicianId','name','position','edit'];
+displayedColumns: string[] = ['physicianId','name','position','edit','delete'];
 dataSource= new MatTableDataSource<getPhysician>();
 
 constructor(private fb:FormBuilder,private PhysicianService:PhysicianService,private dialog:MatDialog){}
@@ -55,47 +55,52 @@ load_table_data(){
 }
 
 
-// editPhysician(id?:number){
-//   console.log('edited')
-// }
-openEditDialog(name:string,position:string){
- 
-  const match=this.data.find(d=>d.name===name && d.position===position)
-  
+
+openEditDialog(physician:getPhysician){
   const dialogRef=this.dialog.open(EditPhysicianComponent,{
-    height: '400px',
-    width: '400px',
-    data:{name:match?.name,position:match?.position}
-  })
-
-
-  dialogRef.afterClosed().subscribe(updatedData=>{
-    if(updatedData){
-      this.PhysicianService.getPhysican().subscribe(alldata=>{
-        const match=this.table_Data.find(d=>d.name===name && d.position===position)
-
-        if(match){
-          const new_updated_data:updatePhysician={
-           
-            //id:match.physicianId , 
-            name:updatedData.name,
-            position:updatedData.position
-          }
-           
-           this.PhysicianService.updatePhysician(new_updated_data).subscribe((updated)=>{
-              const index=this.data.findIndex(q=>q.physicianId===match.physicianId)
-              if(index!==-1){
-                this.data_update[index]=updated
-              }
-           })
-
-        }
-      })
+    height: '300px',
+    width: '270px',
+    data:{
+      physicianId:physician.physicianId,
+      name:physician.name,
+      position:physician.position
     }
   })
 
+  dialogRef.afterClosed().subscribe(updatedData=>{
+    if(updatedData){
+      const new_updated_data:updatePhysician={
+        physicianId:updatedData.physicianId,
+        name:updatedData.name,
+        position:updatedData.position
+      }
+
+      this.PhysicianService.updatePhysician(new_updated_data).subscribe(()=>{
+        this.load_table_data()
+      })
+    }
+  })
+}
+
+
+deletePhysician(physician:updatePhysician){
+const confirmdelete=confirm('Are you sure you want to delete?')
+if(confirmdelete){
+  const body={
+    physicianId:physician.physicianId,
+    name:physician.name,
+    position:physician.position
+  }
+  this.PhysicianService.deletePhysician(body).subscribe(()=>{
+  console.log('Deleted succesfuly')
+  this.load_table_data();
+})
+}
+
 
 }
+
+
 onSubmit(){
   if(this.myform.valid){
     console.log('Form submitted',this.myform.value)

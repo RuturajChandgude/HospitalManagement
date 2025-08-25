@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   constructor(){}
   ngOnInit() {
    
-    localStorage.setItem('token','eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIwIiwidGVuYW50X2VtYWlsIjoicnV0dXJhai5jaGFuZGd1ZGVAZ29kaWdpdGFsdGMuY29tIiwiY3JlYXRlZF9vbiI6IjgvMjAvMjAyNSAyOjUyOjIzIFBNIiwiZXhwIjoxNzU2MDQ3MTQzfQ.07T27bAO4tlq5VdJPiQIcpvyHULQjih3bwHKMNonr4k')
+    localStorage.setItem('token','eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiI1NyIsInRlbmFudF9lbWFpbCI6InJ1dHVyYWouY2hhbmRndWRlQGdvZGlnaXRhbHRjLmNvbSIsImNyZWF0ZWRfb24iOiI4LzIwLzIwMjUgMjo1MjoyNCBQTSIsImV4cCI6MTc2MzkwMzQ4Mn0.jWHvHuEdyrNV--4x8jH4I_1zPFqAfQIjB-qkZkeIdOo')
   }
 }

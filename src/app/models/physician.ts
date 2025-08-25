@@ -42,7 +42,7 @@ position:string
 }
 
 export interface updatePhysician{
-  //id:number
+  physicianId:number
   name:string
   position:string
 }

@@ -3,11 +3,14 @@ import path from 'path';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PhysicianComponent } from './physician/physician.component';
 import { AppComponent } from './app.component';
-import { NurseComponent } from './nurse/nurse.component';
+import { NurseComponent } from './nurseDetails/nurse/nurse.component';
+import { BlockComponent } from './blockDetails/block/block.component';
+import { RoomComponent } from './roomDetails/room/room.component';
 
 export const routes: Routes = [
-    {path:'',component:NavbarComponent},
-    {path:'physician',component:PhysicianComponent},
-    {path:'nurse',component:NurseComponent}
-
+    // {path:'',component:NavbarComponent},
+    {path:'',component:PhysicianComponent},
+    {path:'nurse',component:NurseComponent},
+    {path:'block',component:BlockComponent},
+    {path:'room',component:RoomComponent}
 ];

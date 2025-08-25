@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { PhysicianService } from '../services/physician.service';
 import { MatDialog, MatDialogRef,MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { FormsModule } from '@angular/forms';
@@ -15,14 +15,14 @@ import { updatePhysician } from '../models/physician';
   styleUrl: './edit-physician.component.css'
 })
 export class EditPhysicianComponent {
-id?:number
+physicianId?:number
 name:string=''
 position:string=''
 
 constructor(private PhysicianService:PhysicianService,private dialogRef:MatDialogRef<EditPhysicianComponent>,@Inject(MAT_DIALOG_DATA) public data:updatePhysician){
 
 if(data){
-  //this.id=data.physicianId
+  this.physicianId=data.physicianId
   this.name=data.name
   this.position=data.position
 
@@ -30,7 +30,12 @@ if(data){
 
 edit(){
   if(this.name && this.position){
-    this.dialogRef.close({name:this.name,position:this.position})
+    this.dialogRef.close({physicianId:this.physicianId,name:this.name,position:this.position})
   }
+}
+
+
+cancel(){
+  this.dialogRef.close();
 }
 }

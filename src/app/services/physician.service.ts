@@ -23,7 +23,13 @@ export class PhysicianService {
   updatePhysician(updatePhysician:updatePhysician):Observable<updatePhysician>{
     return this.http.put<updatePhysician>(`${this.apiUrl}${this.physician}`,updatePhysician)
   }
+ 
 
+  deletePhysician(deletePhysician:updatePhysician):Observable<void>{
+    return this.http.request<void>('DELETE',`${this.apiUrl}${this.physician}`,{
+      body:deletePhysician
+    })
+  }
 
 
 }
