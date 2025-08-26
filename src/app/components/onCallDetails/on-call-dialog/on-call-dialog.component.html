@@ -1,0 +1,41 @@
+<div class="form">
+    <div class="container">
+        <form [formGroup]="onCallForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Nurse Id</mat-label>
+                <input matInput formControlName="nurseId">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Block Id</mat-label>
+                <input matInput formControlName="blockId">
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput formControlName="onCallStart" [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput formControlName="onCallEnd" [matDatepicker]="picker2">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+
+            <br>
+
+            <br>
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary"
+                type="submit">{{isEditMode?'Edit':'Add'}}</button>
+
+        </form>
+    </div>
+</div>

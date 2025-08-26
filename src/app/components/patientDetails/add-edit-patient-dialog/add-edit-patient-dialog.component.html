@@ -1,0 +1,25 @@
+<div class="form">
+    <div class="container">
+        <form [formGroup]="patientform" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone">
+            </mat-form-field>
+
+           <br>
+
+            <br>
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">{{isEditMode?'Edit':'Add'}}</button>
+
+        </form>
+    </div>
+</div>

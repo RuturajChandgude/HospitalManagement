@@ -1,0 +1,67 @@
+ <button mat-raised-button color="primary" (click)="openAddDialog()">Add Patient</button>
+ <br>
+ <br>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="onCallId">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.onCallId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="nurseId">
+    <th mat-header-cell *matHeaderCellDef>Nurse ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.nurse.nurseId}} </td>
+  </ng-container>
+
+   <ng-container matColumnDef="nurseName">
+    <th mat-header-cell *matHeaderCellDef> Nurse Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.nurse.name}} </td>
+  </ng-container>
+
+    <ng-container matColumnDef="nursePosition">
+    <th mat-header-cell *matHeaderCellDef> Nurse Position</th>
+    <td mat-cell *matCellDef="let element"> {{element.nurse.position}} </td>
+  </ng-container>
+ 
+      <ng-container matColumnDef="blockFloor">
+    <th mat-header-cell *matHeaderCellDef>Block Floor</th>
+    <td mat-cell *matCellDef="let element"> {{element.block.blockFloor}} </td>
+  </ng-container>
+
+
+   <ng-container matColumnDef="onCallStart">
+    <th mat-header-cell *matHeaderCellDef> onCall Start </th>
+    <td mat-cell *matCellDef="let element"> {{element.onCallStart}} </td>
+  </ng-container>
+
+   <ng-container matColumnDef="onCallEnd">
+    <th mat-header-cell *matHeaderCellDef> onCall End</th>
+    <td mat-cell *matCellDef="let element"> {{element.onCallEnd}} </td>
+  </ng-container>
+
+  
+
+  
+
+   <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> Edit </th>
+    <td mat-cell *matCellDef="let element" >
+      <button mat-raised-button color="primary" (click)="openEditDialog(element)">Edit</button>
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element" >
+      <button mat-raised-button color="warn" (click)="delete(element)">Delete</button>
+    </td>
+    
+
+  </ng-container>
+
+ 
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

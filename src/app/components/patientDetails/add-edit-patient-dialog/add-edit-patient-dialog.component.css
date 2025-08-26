@@ -1,0 +1,13 @@
+.form{
+    min-height:300px;
+    display: flex;
+   background: #90b1d2;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: auto;
+    
+}
+.container{
+    margin-left: 80px;
+}
