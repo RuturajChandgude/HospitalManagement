@@ -1,6 +1,6 @@
 <div class="form">
     <div class="container">
-        <form [formGroup]="nurseForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="physicianForm" (ngSubmit)="onSubmit()">
             <mat-form-field>
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="name">
@@ -10,16 +10,11 @@
                 <mat-label>Position</mat-label>
                 <input matInput formControlName="position">
             </mat-form-field>
+
             <br>
-            <mat-form-field>
-                <mat-label>Registered</mat-label>
-                <mat-radio-group formControlName="registered">
-                    <mat-radio-button [value]="true">Yes</mat-radio-button>
-                    <mat-radio-button [value]="false">No</mat-radio-button>
-                </mat-radio-group>
-            </mat-form-field>
-            <br>
+            <button style="margin-bottom: 10px;" mat-button color="primary" (click)="cancel()">Cancel</button>
             <button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">{{isEditMode?'Edit':'Add'}}</button>
+
         </form>
     </div>
 </div>

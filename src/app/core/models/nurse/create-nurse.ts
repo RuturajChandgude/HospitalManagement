@@ -1,5 +1,5 @@
 export interface CreateNurse {
-     name:string,
+    name:string,
     position:string,
     registered:boolean
 }

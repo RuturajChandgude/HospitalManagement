@@ -1,22 +1,20 @@
-<div>
-    <mat-dialog-content>
-    <mat-form-field>
-        <mat-label>BlockFloor</mat-label>
-        <input matInput [(ngModel)]="blockFloor">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>BlockCode</mat-label>
-        <input matInput [(ngModel)]="blockCode">
-    </mat-form-field>
+<div class="form">
+    <div class="container">
+        <form [formGroup]="blockForm" (ngSubmit)="onSubmit()">
+            <mat-form-field>
+                <mat-label>Block Floor</mat-label>
+                <input matInput formControlName="blockFloor">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Block Code</mat-label>
+                <input matInput formControlName="blockCode">
+            </mat-form-field>
+            
+            <br>
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">{{isEditMode?'Edit':'Add'}}</button>
 
-
-    
-</mat-dialog-content>
-
-
-<mat-dialog-actions align="start">
-  <button  mat-flat-button color="primary" (click)="cancel()">Cancel</button>
-  <button  mat-flat-button color="primary" (click)="edit()">Edit</button>
-</mat-dialog-actions>
+        </form>
+    </div>
 </div>

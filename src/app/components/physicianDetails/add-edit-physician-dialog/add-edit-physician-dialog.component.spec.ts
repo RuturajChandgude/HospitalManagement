@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditPhysicianComponent } from './edit-physician.component';
+import { EditPhysicianComponent } from './add-edit-physician-dialog.component';
 
 describe('EditPhysicianComponent', () => {
   let component: EditPhysicianComponent;

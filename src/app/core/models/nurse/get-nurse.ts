@@ -1,5 +1,5 @@
 export interface GetNurse {
-     nurseId:number,
+    nurseId:number,
     name:string,
     position:string,
     registered:boolean,

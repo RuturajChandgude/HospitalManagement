@@ -10,8 +10,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-patient-dialog',
   imports: [MatFormFieldModule,MatInputModule,MatButtonModule,ReactiveFormsModule],
-  templateUrl: './patient-dialog.component.html',
-  styleUrl: './patient-dialog.component.css'
+  templateUrl: './add-edit-patient-dialog.component.html',
+  styleUrl: './add-edit-patient-dialog.component.css'
 })
 export class PatientDialogComponent implements OnInit{
 public patientform!:FormGroup

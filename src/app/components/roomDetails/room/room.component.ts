@@ -1,5 +1,4 @@
 import { Component ,OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoomService } from '../../../core/services/room/room.service';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
@@ -18,9 +17,8 @@ import { EditRoomComponent } from '../add-edit-room-dialog/add-edit-room-dialog.
 export class RoomComponent implements OnInit{
 public displayedColumns: string[] = ['roomId','roomNumber','blockId','blockFloor','roomType','createdOn','edit','delete'];
 public dataSource= new MatTableDataSource<GetRoom>();
-public isEditing:boolean=false
 
-constructor(private fb:FormBuilder,private roomService:RoomService,private dialog:MatDialog){}
+constructor(private roomService:RoomService,private dialog:MatDialog){}
 
 ngOnInit() {
 this.loadData()

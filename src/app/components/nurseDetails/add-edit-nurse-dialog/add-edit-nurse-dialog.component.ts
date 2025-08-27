@@ -1,45 +1,59 @@
-import { Component,Inject} from '@angular/core';
+import { Component,OnInit,Inject} from '@angular/core';
 import { MatDialog, MatDialogRef,MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { FormsModule } from '@angular/forms';
+import { FormBuilder,FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { postNurse } from '../../../core/models/nurse';
+
 import { NurseService } from '../../../core/services/nurse/nurse.service';
 import { UpdateNurse } from '../../../core/models/nurse/update-nurse';
 
 @Component({
   selector: 'app-edit-nurse',
-  imports: [MatDialogModule,FormsModule,MatRadioModule,MatButtonModule,MatFormFieldModule,MatInputModule],
-  templateUrl: './edit-nurse.component.html',
-  styleUrl: './edit-nurse.component.css'
+  imports: [ReactiveFormsModule,MatDialogModule,FormsModule,MatRadioModule,MatButtonModule,MatFormFieldModule,MatInputModule],
+  templateUrl: './add-edit-nurse-dialog.component.html',
+  styleUrl: './add-edit-nurse-dialog.component.css'
 })
-export class EditNurseComponent {
-nurseId?:number
-name:string=''
-position:string=''
-registered:boolean=false
+export class EditNurseComponent implements OnInit {
+public nurseForm!:FormGroup
+public isEditMode=false
+public nurseId?:number
+public name:string=''
+public position:string=''
+public registered:boolean=false
 
 
-constructor(private nurseService:NurseService,private dialogRef:MatDialogRef<EditNurseComponent>,@Inject(MAT_DIALOG_DATA) public data:UpdateNurse){
-  if(data){
-  this.nurseId=data.nurseId,
-  this.name=data.name,
-  this.position=data.position,
-  this.registered=data.registered
+constructor(private fb:FormBuilder,private nurseService:NurseService,private dialogRef:MatDialogRef<EditNurseComponent>,@Inject(MAT_DIALOG_DATA) public data:UpdateNurse){}
+
+ngOnInit() {
+  if(this.data){
+  this.isEditMode=true
+  } 
+  this.nurseForm=this.fb.group({
+    nurseId:[this.data?this.data.nurseId:'',Validators.required],
+    name:[this.data?this.data.name:'',Validators.required],
+    position:[this.data?this.data.position:'',Validators.required],
+    registered:[this.data?this.data.registered:'',Validators.required]
+  })
 }
-}
 
-
-edit(){
-  if(this.name && this.position){
-    this.dialogRef.close({nurseId:this.nurseId,name:this.name,position:this.position,registered:this.registered})
+public onSubmit(){
+if(this.nurseForm.valid){
+  if(this.isEditMode){
+    this.dialogRef.close({
+      nurseId:this.data.nurseId,
+      ...this.nurseForm.value
+    })
+  }
+  else{
+    this.dialogRef.close(this.nurseForm.value)
   }
 }
+}
 
-cancel(){
+public cancel(){
   this.dialogRef.close()
 }
 

@@ -11,8 +11,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-edit-room',
   imports: [ReactiveFormsModule,MatRadioModule,MatFormFieldModule,MatInputModule,MatButtonModule],
-  templateUrl: './edit-room.component.html',
-  styleUrl: './edit-room.component.css'
+  templateUrl: './add-edit-room-dialog.component.html',
+  styleUrl: './add-edit-room-dialog.component.css'
 })
 export class EditRoomComponent implements OnInit {
 public roomForm!:FormGroup

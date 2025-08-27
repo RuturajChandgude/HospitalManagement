@@ -1,89 +1,80 @@
 import { Component,OnInit  } from '@angular/core'; 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { PhysicianService } from '../core/services/physician.service';
-
-import { getPhysician, updatePhysician } from '../core/models/physician';
+import { PhysicianService } from '../../../core/services/physician/physician.service';
+import { GetPhysician } from '../../../core/models/physician/get-physician';
+import { UpdatePhysician } from '../../../core/models/physician/update-physician';
 import {MatTableModule} from '@angular/material/table';
  import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog,MatDialogModule } from '@angular/material/dialog';
- import { EditPhysicianComponent } from '../edit-physician/edit-physician.component';
- import { postPhysician } from '../core/models/physician';
+ import { EditPhysicianComponent } from '../add-edit-physician-dialog/add-edit-physician-dialog.component';
+import { CreatePhysician } from '../../../core/models/physician/create-physician';
+import { DeletePhysician } from '../../../core/models/physician/delete-physician';
 @Component({
   selector: 'app-physician',
-  imports: [ReactiveFormsModule,MatDialogModule,MatTableModule,MatButtonModule,MatFormFieldModule,MatInputModule],
+  imports: [MatDialogModule,MatTableModule,MatButtonModule,MatFormFieldModule,MatInputModule],
   templateUrl: './physician.component.html',
   styleUrl: './physician.component.css'
 })
 export class PhysicianComponent implements OnInit {
-myform!:FormGroup
+public dataUpdate:UpdatePhysician[]=[]
 
-data_update:updatePhysician[]=[]
+public data:GetPhysician[]=[]
 
-data:getPhysician[]=[]
+public tableData:GetPhysician[]=[]
+public displayedColumns: string[] = ['physicianId','name','position','createdOn','edit','delete'];
+public dataSource= new MatTableDataSource<GetPhysician>();
 
-table_Data:getPhysician[]=[]
-displayedColumns: string[] = ['physicianId','name','position','edit','delete'];
-dataSource= new MatTableDataSource<getPhysician>();
-
-constructor(private fb:FormBuilder,private PhysicianService:PhysicianService,private dialog:MatDialog){}
+constructor(private PhysicianService:PhysicianService,private dialog:MatDialog){}
 
 ngOnInit(){
-this.myform=this.fb.group({
-  name:['',Validators.required],
-  position:['',Validators.required]
-})
-
-this.PhysicianService.getPhysican().subscribe((response)=>{
-  this.data=response
-  console.log(this.data)
-})
-
-this.load_table_data()
- 
-
+this.loadData()
 }
 
 
-load_table_data(){
+public loadData(){
  this.PhysicianService.getPhysican().subscribe((data)=>{
   this.dataSource.data=data
  })
 }
 
-
-
-openEditDialog(physician:getPhysician){
+public openAddDialog(){
   const dialogRef=this.dialog.open(EditPhysicianComponent,{
-    height: '300px',
-    width: '270px',
-    data:{
-      physicianId:physician.physicianId,
-      name:physician.name,
-      position:physician.position
-    }
+    width:'300px',
+    height:'300px'
   })
 
-  dialogRef.afterClosed().subscribe(updatedData=>{
-    if(updatedData){
-      const new_updated_data:updatePhysician={
-        physicianId:updatedData.physicianId,
-        name:updatedData.name,
-        position:updatedData.position
-      }
-
-      this.PhysicianService.updatePhysician(new_updated_data).subscribe(()=>{
-        this.load_table_data()
+  dialogRef.afterClosed().subscribe(result=>{
+    if(result){
+      this.PhysicianService.postPhysician(result).subscribe(()=>{
+        this.loadData()
       })
     }
   })
 }
 
+public openEditDialog(physicianUpdate:UpdatePhysician){
+if(physicianUpdate){
+  const dialogRef=this.dialog.open(EditPhysicianComponent,{
+    width:'400px',
+    height:'400px',
+    data:physicianUpdate
 
-deletePhysician(physician:updatePhysician){
+  })
+
+  dialogRef.afterClosed().subscribe(result=>{
+    if(result){
+      this.PhysicianService.updatePhysician(result).subscribe(()=>{
+        this.loadData()
+      })
+    }
+  })
+
+}
+}
+
+public deletePhysician(physician:DeletePhysician){
 const confirmdelete=confirm('Are you sure you want to delete?')
 if(confirmdelete){
   const body={
@@ -93,25 +84,9 @@ if(confirmdelete){
   }
   this.PhysicianService.deletePhysician(body).subscribe(()=>{
   console.log('Deleted succesfuly')
-  this.load_table_data();
+  this.loadData();
 })
 }
-
-
 }
 
-
-onSubmit(){
-  if(this.myform.valid){
-    console.log('Form submitted',this.myform.value)
-
-    this.PhysicianService.postPhysician(this.myform.value).subscribe((data)=>{
-      console.log('Form submitted succesfully',data)
-    })
-  }
-  else{
-    console.log('Error submitting form')
-  }  
-  
-}
 }

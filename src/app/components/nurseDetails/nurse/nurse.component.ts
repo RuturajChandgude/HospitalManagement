@@ -1,18 +1,17 @@
 import { Component,OnInit  } from '@angular/core'; 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
-import { NurseService } from '../../core/services/nurse.service';
-import { getNurse } from '../../core/models/nurse';
+import { NurseService } from '../../../core/services/nurse/nurse.service';
+import { GetNurse } from '../../../core/models/nurse/get-nurse';
 import {MatTableModule} from '@angular/material/table';
  import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog,MatDialogModule } from '@angular/material/dialog';
-import { postNurse } from '../../core/models/nurse';
-import { updateNurse } from '../../core/models/nurse';
+import { UpdateNurse } from '../../../core/models/nurse/update-nurse';
 import { EditNurseComponent } from '../add-edit-nurse-dialog/add-edit-nurse-dialog.component';
+import { DeleteNurse } from '../../../core/models/nurse/delete-nurse';
 
 @Component({
   selector: 'app-nurse',
@@ -21,60 +20,57 @@ import { EditNurseComponent } from '../add-edit-nurse-dialog/add-edit-nurse-dial
   styleUrl: './nurse.component.css'
 })
 export class NurseComponent implements OnInit {
-myform!:FormGroup
+
 displayedColumns: string[] = ['nurseId','name','position','registered','createdOn','edit','delete'];
-dataSource= new MatTableDataSource<getNurse>();
-//nurse:getNurse | null=null
-constructor(private fb:FormBuilder,private nurseService:NurseService,private dialog:MatDialog){}
+dataSource= new MatTableDataSource<GetNurse>();
+
+constructor(private nurseService:NurseService,private dialog:MatDialog){}
 
 ngOnInit(){
-this.myform=this.fb.group({
-  name:['',Validators.required],
-  position:['',Validators.required],
-  registered:['',Validators.required]
-})
-this.load_nurse()
+this.loadNurse()
 }
 
-
-load_nurse(){
+public loadNurse(){
 this.nurseService.getNurse().subscribe((data)=>{
 this.dataSource.data=data
 })
 }
 
+public openAddDialog(){
+  const dialogRef=this.dialog.open(EditNurseComponent,{
+    width:'400px',
+    height:'400px'
+  })
 
-openEditDialog(nurse:getNurse){
- const dialogRef=this.dialog.open(EditNurseComponent,{
-  height: '340px',
-    width: '340px',
-    data:{
-      nurseId:nurse.nurseId,
-      name:nurse.name,
-      position:nurse.position,
-      registered:nurse.registered
+  dialogRef.afterClosed().subscribe(result=>{
+    if(result){
+      this.nurseService.postNurse(result).subscribe(()=>{
+        this.loadNurse()
+      })
     }
- })
-
- dialogRef.afterClosed().subscribe(updatedData=>{
-  if(updatedData){
-    const new_updated_data:updateNurse={
-      nurseId:updatedData.nurseId,
-      name:updatedData.name,
-      position:updatedData.position,
-      registered:updatedData.registered
-
-    }
-
-    this.nurseService.updateNurse(new_updated_data).subscribe(()=>{
-      this.load_nurse()
-    })
-  }
- })
+  })
 }
 
+public openEditDialog(nurseUpdate:UpdateNurse){
+if(nurseUpdate){
+  const dialogRef=this.dialog.open(EditNurseComponent,{
+    width:'400px',
+    height:'400px',
+    data:nurseUpdate
 
-deleteNurse(nurse:getNurse){
+  })
+
+  dialogRef.afterClosed().subscribe(result=>{
+    if(result){
+      this.nurseService.updateNurse(result).subscribe(()=>{
+        this.loadNurse()
+      })
+    }
+  })
+}
+}
+
+public deleteNurse(nurse:DeleteNurse){
 const confirmdata=confirm('Are you sure you want to delete?')
 if(confirmdata){
  const body={
@@ -86,20 +82,9 @@ if(confirmdata){
 
  this.nurseService.deleteNurse(body).subscribe(()=>{
   console.log('Deleted succesfully')
-  this.load_nurse()
+  this.loadNurse()
  })
 }
 }
 
-onSubmit(){
-  if(this.myform.valid){
-    //console.log(this.myform.value)
-    console.log('nurse submited')
-
-    this.nurseService.postNurse(this.myform.value).subscribe((data)=>{
-      console.log('Nurse data submitted succesfully',data)
-      this.load_nurse()
-    })
-  }
-}
 }
