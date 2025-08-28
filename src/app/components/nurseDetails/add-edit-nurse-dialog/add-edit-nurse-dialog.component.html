@@ -11,15 +11,20 @@
                 <input matInput formControlName="position">
             </mat-form-field>
             <br>
-            <mat-form-field>
-                <mat-label>Registered</mat-label>
-                <mat-radio-group formControlName="registered">
-                    <mat-radio-button [value]="true">Yes</mat-radio-button>
-                    <mat-radio-button [value]="false">No</mat-radio-button>
-                </mat-radio-group>
-            </mat-form-field>
+            <mat-radio-group formControlName="registered">
+                <mat-label>Registered</mat-label><br>
+                <mat-radio-button [value]="true">Yes</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
             <br>
-            <button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">{{isEditMode?'Edit':'Add'}}</button>
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary" (click)="cancel()">
+                Cancel
+            </button>
+
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary"
+                [disabled]="this.nurseForm.invalid && (name.trim()==='' || position.trim()==='')"
+                type="submit">{{isEditMode?'Edit':'Add'}}
+            </button>
         </form>
     </div>
 </div>

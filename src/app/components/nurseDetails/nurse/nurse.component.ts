@@ -10,12 +10,12 @@ import {MatTableModule} from '@angular/material/table';
  import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog,MatDialogModule } from '@angular/material/dialog';
 import { UpdateNurse } from '../../../core/models/nurse/update-nurse';
-import { EditNurseComponent } from '../add-edit-nurse-dialog/add-edit-nurse-dialog.component';
+import { AddEditNurseDialogComponent } from '../add-edit-nurse-dialog/add-edit-nurse-dialog.component';
 import { DeleteNurse } from '../../../core/models/nurse/delete-nurse';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-nurse',
-  imports: [ReactiveFormsModule,MatTableModule,MatButtonModule,MatDialogModule,MatFormFieldModule,MatInputModule,MatRadioModule],
+  imports: [CommonModule,ReactiveFormsModule,MatTableModule,MatButtonModule,MatDialogModule,MatFormFieldModule,MatInputModule,MatRadioModule],
   templateUrl: './nurse.component.html',
   styleUrl: './nurse.component.css'
 })
@@ -37,7 +37,7 @@ this.dataSource.data=data
 }
 
 public openAddDialog(){
-  const dialogRef=this.dialog.open(EditNurseComponent,{
+  const dialogRef=this.dialog.open(AddEditNurseDialogComponent,{
     width:'400px',
     height:'400px'
   })
@@ -53,9 +53,9 @@ public openAddDialog(){
 
 public openEditDialog(nurseUpdate:UpdateNurse){
 if(nurseUpdate){
-  const dialogRef=this.dialog.open(EditNurseComponent,{
-    width:'400px',
-    height:'400px',
+  const dialogRef=this.dialog.open(AddEditNurseDialogComponent,{
+    width:'350px',
+    height:'350px',
     data:nurseUpdate
 
   })

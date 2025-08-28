@@ -51,4 +51,8 @@ if(this.onCallForm.valid){
 }
 }
 
+public cancel(){
+  this.dialogRef.close()
+}
+
 }

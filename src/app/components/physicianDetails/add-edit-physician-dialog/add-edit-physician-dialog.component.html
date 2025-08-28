@@ -13,8 +13,7 @@
 
             <br>
             <button style="margin-bottom: 10px;" mat-button color="primary" (click)="cancel()">Cancel</button>
-            <button style="margin-bottom: 10px;" mat-raised-button color="primary" type="submit">{{isEditMode?'Edit':'Add'}}</button>
-
+            <button style="margin-bottom: 10px;" mat-raised-button color="primary" [disabled]="physicianForm.invalid && (position.trim()==='' || name.trim()==='')" type="submit">{{isEditMode?'Edit':'Add'}}</button>
         </form>
     </div>
 </div>

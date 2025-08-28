@@ -10,25 +10,24 @@ import { environment } from '../../../env/env';
   providedIn: 'root'
 })
 export class OnCallService {
-  private apiUrl=`${environment.baseUrl}/on-call`
+  private apiUrl = `${environment.baseUrl}/oncall`
+  constructor(private http: HttpClient) { }
 
-  constructor(private http:HttpClient) { }
-
-  public getOnCall():Observable<GetOnCall[]>{
+  public getOnCall(): Observable<GetOnCall[]> {
     return this.http.get<GetOnCall[]>(`${this.apiUrl}`)
   }
 
-  public postOnCall(postOnCall:CreateOnCall):Observable<CreateOnCall>{
-    return this.http.post<CreateOnCall>(`${this.apiUrl}`,postOnCall)
+  public postOnCall(postOnCall: CreateOnCall): Observable<CreateOnCall> {
+    return this.http.post<CreateOnCall>(`${this.apiUrl}`, postOnCall)
   }
 
-  public updateOnCall(updateOnCall:UpdateOnCall):Observable<UpdateOnCall>{
-    return this.http.put<UpdateOnCall>(`${this.apiUrl}`,updateOnCall)
+  public updateOnCall(updateOnCall: UpdateOnCall): Observable<UpdateOnCall> {
+    return this.http.put<UpdateOnCall>(`${this.apiUrl}`, updateOnCall)
   }
 
-  public deleteOnCall(deleteOnCall:DeleteOnCall):Observable<void>{
-    return this.http.request<void>('DELETE',`${this.apiUrl}`,{
-      body:deleteOnCall
+  public deleteOnCall(deleteOnCall: DeleteOnCall): Observable<void> {
+    return this.http.request<void>('DELETE', `${this.apiUrl}`, {
+      body: deleteOnCall
     })
   }
 }

@@ -11,7 +11,6 @@ import { environment } from '../../../env/env';
 })
 export class BlockService {
   private apiUrl=`${environment.baseUrl}/block`
-
   constructor(private http:HttpClient) { }
   
   public getBlock():Observable<GetBlock[]>{

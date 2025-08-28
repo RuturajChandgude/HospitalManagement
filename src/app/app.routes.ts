@@ -1,21 +1,11 @@
 import { Routes } from '@angular/router';
-import path from 'path';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { PhysicianComponent } from './components/physicianDetails/physician/physician.component';
-import { AppComponent } from './app.component';
-import { NurseComponent } from './components/nurseDetails/nurse/nurse.component';
-import { BlockComponent } from './components/blockDetails/block/block.component';
-import { RoomComponent } from './components/roomDetails/room/room.component';
-import { PatientComponent } from './components/patientDetails/patient/patient.component';
-import { OnCallComponent } from './components/onCallDetails/on-call/on-call.component';
 
 export const routes: Routes = [
-    // {path:'',component:NavbarComponent},
-    {path:'', redirectTo:'physician', pathMatch:'full'}, 
-    {path:'physician',component:PhysicianComponent},
-    {path:'nurse',component:NurseComponent},
-    {path:'block',component:BlockComponent},
-    {path:'room',component:RoomComponent},
-    {path:'patient',component:PatientComponent},
-    {path:'onCall',component:OnCallComponent}
+    { path: '', redirectTo: 'physician', pathMatch: 'full' },
+    { path: 'physician', loadComponent: () => import('./components/physicianDetails/physician/physician.component').then((m) => m.PhysicianComponent) },
+    { path: 'nurse', loadComponent: () => import('./components/nurseDetails/nurse/nurse.component').then((m) => m.NurseComponent) },
+    { path: 'block', loadComponent: () => import('./components/blockDetails/block/block.component').then((m) => m.BlockComponent) },
+    { path: 'room', loadComponent: () => import('./components/roomDetails/room/room.component').then((m) => m.RoomComponent) },
+    { path: 'patient', loadComponent: () => import('./components/patientDetails/patient/patient.component').then((m) => m.PatientComponent) },
+    { path: 'onCall', loadComponent: () => import('./components/onCallDetails/on-call/on-call.component').then((m) => m.OnCallComponent) },
 ];

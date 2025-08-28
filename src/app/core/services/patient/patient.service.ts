@@ -11,7 +11,7 @@ import { environment } from '../../../env/env';
   providedIn: 'root'
 })
 export class PatientService {
-  private apiUrl=`${environment.baseUrl}/patient`
+  private apiUrl=`${environment.baseUrl}/patients`
   
   constructor(private http:HttpClient) { }
 

@@ -1,5 +1,5 @@
 export interface UpdateRoom {
-     roomId:number,
+    roomId:number,
     roomNumber:number,
     blockId:number,
     roomType:string,
